@@ -10,7 +10,7 @@
 - [api-openweathermap-del-meteo](#api-openweathermap-del-meteo)
 - [api-yelp-delle-attività-commerciali](#api-yelp-delle-attività-commerciali)
 - [documentazione-api](#documentazione-api)
-
+- [città-testate](#città-testate)
 ---
 ## goal
 Realizzare un back-end che esponga tramite endpoint RESTful ad un ipotetico front-end un
