@@ -43,8 +43,7 @@ nome della città e il paese/nazione della città
 Le api che aggregano i dati come richiesto dall'esercizio sono 2:
 
 1. /api/cities/full?city={nome della città}&country={codice ISO 3166 del paese}
-2. /api/cities/mod?city={nome della città}&country={codice ISO 3166 del paese}&reviewCount={numero}&searchName={lettere}
-
+2. /api/cities/mod?city={nome città}&country={codice paese}&reviewCount={numero intero}&searchName={alphanumerico}&distanceOrder={asc|desc}
 
 ---
 ## le-mie-credenziali-di-accesso-alle-api
@@ -55,7 +54,7 @@ le variabili ambientali:
 - OPENWEATHERMAP_API_KEY
 
   che sono le mie credenziali per accedere alle
-  api di terze parti offerte da:
+  api di terze parti esposte da:
 
 - https://www.yelp.com/developers
 - https://openweathermap.org/
@@ -81,8 +80,7 @@ Dopo aver ottenuto i dati delle coordinate è possibile accedere ai dati:
 ---
 ## testare-il-progetto
 entrare nella root del progetto
-ed eseguire
-
+ed eseguire:
 ```
 npm run dev
 ```
@@ -93,13 +91,11 @@ npm run dev
 entrare nella root del progetto
 
 fare prima la build:
-
 ```
 docker build -t api-cities .
 ```
 
 ...e poi avviare:
-
 ```
 docker run -d -p 8080:8080 api-cities
 ```
@@ -125,7 +121,7 @@ rispetto a tutte le altre api ha 2 parametri opzionali in più e sono:
 
 Endpoint completo:
 ```
-/api/cities/mod?city={Città}&country={Paese}&reviewCount={Intero}&searchName={Alphanumerico}&distanceOrder={asc|desc}
+/api/cities/mod?city={nome città}&country={codice paese}&reviewCount={numero intero}&searchName={alphanumerico}&distanceOrder={asc|desc}
 ```
 
 
@@ -170,7 +166,6 @@ Per ottenere le attività commerciali di una città:
 https://api.yelp.com/v3/businesses/search?term=delis&latitude=40.8359336&lon&longitude=14.2487826
 
 Esempio meteo corrente su Napoli:
-
 https://documenter.getpostman.com/view/4029716/UVRAK7RJ
 
 
@@ -180,3 +175,14 @@ https://documenter.getpostman.com/view/4029716/UVkqqZpq
 
 
 ---
+
+### città-testate
+city                     | paese | risultato
+-------------------------|-------|----------
+Napoli                   | IT    | OK
+La Spezia                | IT    | OK
+Lüdenscheid              | DE    | OK
+Île-de-France            | FR    | OK
+Húběi                    | CN    | OK
+Петропавловск-Камчатский | RU    | OK
+

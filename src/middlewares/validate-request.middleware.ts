@@ -3,7 +3,8 @@ import { check, buildCheckFunction } from 'express-validator';
 const checkQuery = buildCheckFunction(['query']);
 
 class ValidateRequest {
-  private readonly cityRegex = /[a-zA-Z]{2,20}/;
+  private readonly cityRegex = /^[\p{L}\p{M}\s-]{2,30}$/u;
+  // private readonly cityRegex = /[a-zA-Z]{2,20}/;
   private readonly countryRegex = /^[a-zA-Z]{2}$/;
 
   setErrorMessage = (param: string) => {
@@ -31,14 +32,6 @@ class ValidateRequest {
       checkQuery('distanceOrder', this.setErrorMessage('distanceOrder'))
         .optional({ nullable: true })
         .matches(/^asc|desc$/),
-    ];
-    return paramsValidator;
-  };
-
-  paramsTest = () => {
-    const paramsValidator = [
-      checkQuery('nome', this.setErrorMessage('nome')).matches(/^[a-zA-Z]{2,10}$/),
-      checkQuery('anni', this.setErrorMessage('anni')).matches(/^[1-9][0-9]?$/),
     ];
     return paramsValidator;
   };

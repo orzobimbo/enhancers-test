@@ -12,11 +12,6 @@ export default class CitiesServices {
 
   public test = 'ciao';
 
-  // eslint-disable-next-line class-methods-use-this
-  testData = async () => {
-    return 'test';
-  };
-
   getCityData = async (city: string, country: string) => {
     const url = `${this.apiDomain}geo/1.0/direct?q=${encodeURI(city)},${country}&limit=1&appid=${
       this.OPENWEATHERMAP_API_KEY

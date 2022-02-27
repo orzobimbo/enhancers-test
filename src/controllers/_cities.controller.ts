@@ -50,11 +50,11 @@ abstract class Controller {
     try {
       cityData = (await this.citiesServices.getCityData(this.city, this.country)) as ICityDetails;
     } catch (error) {
-      return next(this.response.error(500, null, this.messageServices.error('coord', 'B')));
+      return next(this.response.error(500, null, this.messageServices.error('coord')));
     }
 
     if (!cityData) {
-      return next(this.response.error(500, null, this.messageServices.error('city', 'C')));
+      return next(this.response.error(500, null, this.messageServices.error('city')));
     }
 
     this.cityData = cityData;

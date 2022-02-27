@@ -1,6 +1,5 @@
 import express from 'express';
 
-import citiesTestController from '../controllers/cities.test.controller';
 import citiesDetailsController from '../controllers/cities.details.controller';
 import citiesWeatherController from '../controllers/cities.weather.controller';
 import citiesBusinessController from '../controllers/cities.business.controller';
@@ -10,15 +9,6 @@ import citiesModController from '../controllers/cities.mod.controller';
 import validateRequest from '../middlewares/validate-request.middleware';
 
 const router = express.Router();
-
-/**
- * @method GET
- * @route  api/cities/test
- * @param  {string} nome
- * @param  {number} anni
- * @desc   TEST
- */
-router.get('/test', validateRequest.paramsTest(), citiesTestController.test);
 
 /**
  * @method GET
@@ -70,7 +60,9 @@ router.get('/full', validateRequest.queryCommon(), citiesFullController.getFullC
  * @desc   ritorna i dati aggregati:
  * - dettagli della città
  * - condizioni meteo
- * - attività commerciali filtrati in base ai parametri "reviewCount" e "searchName"
+ * - attività commerciali:
+ *  - filtrati in base ai parametri opzionali "reviewCount" e "searchName"
+ *  - ordinati in base al parametro opzionale "distance"
  */
 router.get('/mod', validateRequest.queryMod(), citiesModController.getModCityWeatherAndBusiness);
 
