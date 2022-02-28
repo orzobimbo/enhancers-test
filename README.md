@@ -42,9 +42,12 @@ nome della città e il paese/nazione della città
 
 Le api che aggregano i dati come richiesto dall'esercizio sono 2:
 
-1. /api/cities/full?city={nome della città}&country={codice ISO 3166 del paese}
-2. /api/cities/mod?city={nome città}&country={codice paese}&reviewCount={numero intero}&searchName={alphanumerico}&distanceOrder={asc|desc}
-
+```
+/api/cities/full?city={nome della città}&country={codice ISO 3166 del paese}
+```
+```
+/api/cities/mod?city={nome città}&country={codice paese}&reviewCount={numero intero}&searchName={alphanumerico}&distanceOrder={asc|desc}
+```
 ---
 ## le-mie-credenziali-di-accesso-alle-api
 Ho reso disponibile il file `.env` che contiene
@@ -62,17 +65,16 @@ le variabili ambientali:
 
 ---
 ## come-ho-ottenuto-i-dati-meteo-e-business
-Considerato che molte città nel mondo possono avere lo stesso nome per
+Considerato che molte città nel mondo possono avere lo stesso nome, per
 poter accedere con precisione ai dati meteo e business di una specifica città
 è necessario prima ottenere le coordinate della città, perchè
 le coordinate `latitudine` e `longitudine` indicano un punto univoco
 nella mappa geografica.
-Per ottenere le coordinate precise si utilizza il nome della città e
+Per ottenere le coordinate si utilizza il nome della città e
 il nome della sua nazione/paese
 Per ottenere le coordinate ho utilizzato le api https://openweathermap.org/api/geocoding-api
 
 Dopo aver ottenuto i dati delle coordinate è possibile accedere ai dati:
-
 - del meteo della città (https://openweathermap.org/current)
 - delle attività commerciali della città (https://www.yelp.com/developers/documentation/v3/business_search)
 
@@ -104,7 +106,7 @@ docker run -d -p 8080:8080 api-cities
 ---
 ## api-mod
 La api `/api/cities/mod`
-rispetto a tutte le altre api ha 2 parametri opzionali in più e sono:
+rispetto a tutte le altre api ha 3 parametri opzionali in più e sono:
 
 1. `reviewCount`:
    - accetta solo numeri interi
@@ -177,6 +179,18 @@ https://documenter.getpostman.com/view/4029716/UVkqqZpq
 ---
 
 ### città-testate
+Ho utilizzato la regex `^[\p{L}\p{M}\s-]{2,30}$` per
+controllare i valori che vengono assegnati al parametro `city`
+La regex permette di inserire valori che hanno:
+- caratteri minuscoli e maiuscoli
+- spazi
+- caratteri accentati
+- trattini `-`
+- alfabeti cirillico, latino e greco moderno
+- stringhe lunghe massimo 30 caratteri
+
+Esempio città testate:
+
 city                     | paese | risultato
 -------------------------|-------|----------
 Napoli                   | IT    | OK
