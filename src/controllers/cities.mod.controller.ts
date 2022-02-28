@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import Controller from './_cities.controller';
 import { ICityDetails, IWeather, IBusiness, IData } from '../types/data';
 
+type Order = 'asc' | 'desc';
+
 class CitiesModController extends Controller {
   modBusiness = async (
     businessData: IBusiness[],
@@ -28,18 +30,9 @@ class CitiesModController extends Controller {
       });
   };
 
-  orderByDistance = (business: IBusiness[], order: 'asc' | 'desc') => {
+  orderByDistance = (business: IBusiness[], order: Order) => {
     return business.sort((a, b) => (order === 'desc' ? b.distance - a.distance : a.distance - b.distance));
   };
-
-  // orderByDistance = (business: IBusiness[], order: 'asc' | 'desc') => {
-  //   business.sort((a, b) => {
-  //     if (order === 'asc') {
-  //       return b.distance - a.distance;
-  //     }
-  //     return a.distance - b.distance;
-  //   });
-  // };
 
   getModCityWeatherAndBusiness = async (req: Request, res: Response, next: NextFunction) => {
     await this.getCityCoord(req, next, 'get-mod-city');
@@ -47,7 +40,7 @@ class CitiesModController extends Controller {
 
     const reviewCount = (req.query.reviewCount as unknown as number) || 0;
     const searchName = (req.query.searchName as unknown as string) || '';
-    const distanceOrder = (req.query.distanceOrder as unknown as 'asc' | 'desc') || '';
+    const distanceOrder = (req.query.distanceOrder as unknown as Order) || '';
 
     const weatherData = (await this.getWeatherSlice(lat, lon, next)) as IWeather;
     const businessData = (await this.getBusinessSlice(lat, lon, next)) as IBusiness[];
